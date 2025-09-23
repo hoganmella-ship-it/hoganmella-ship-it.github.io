@@ -250,33 +250,8 @@
     const music = document.getElementById("bg-music");
     music.muted = false;
     music.play();
-  }
-        <script>
-            const musicPlayer = document.getElementById('background-music');
-            const musicButton = document.getElementById('music-button');
-            const musicIcon = document.getElementById('music-icon');
-
-            // Using YouTube's embed link to handle auto-play better
-            const youtubeEmbedUrl = 'https://www.youtube.com/embed/BqFEtDsTUrQ?autoplay=1&mute=1&loop=1&controls=0&playlist=BqFEtDsTUrQ';
-            const youtubePlayer = document.createElement('iframe');
-            youtubePlayer.id = 'youtube-player';
-            youtubePlayer.className = 'hidden';
-            youtubePlayer.src = youtubeEmbedUrl;
-            youtubePlayer.setAttribute('frameborder', '0');
-            youtubePlayer.setAttribute('allow', 'autoplay; encrypted-media');
-            document.body.appendChild(youtubePlayer);
-
-            let isPlaying = false;
-            musicButton.addEventListener('click', () => {
-                const player = document.getElementById('youtube-player');
-                if (isPlaying) {
-                    player.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-                    musicIcon.name = 'musical-notes-outline';
-                } else {
-                    player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-                    musicIcon.name = 'pause-outline';
-                }
-                isPlaying = !isPlaying;
+  }  
+              isPlaying = !isPlaying;
             });
         </script>
     </div>
