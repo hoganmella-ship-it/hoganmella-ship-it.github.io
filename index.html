@@ -239,13 +239,18 @@
     </script>
 
     <!-- Background Music Player -->
-    <div id="music-player" class="fixed bottom-4 right-4 z-50">
-        <audio id="background-music" loop>
-            <source src="https://www.youtube.com/watch?v=BqFEtDsTUrQ" type="audio/mpeg">
-        </audio>
-        <button id="music-button" class="p-3 rounded-full bg-sage text-white shadow-lg focus:outline-none">
-            <ion-icon name="musical-notes-outline" id="music-icon" class="text-xl"></ion-icon>
-        </button>
+   <audio id="bg-music" autoplay loop muted>
+  <source src="willy.mp3" type="audio/mpeg">
+</audio>
+
+<button onclick="playMusic()">Play Music</button>
+
+<script>
+  function playMusic() {
+    const music = document.getElementById("bg-music");
+    music.muted = false;
+    music.play();
+  }
         <script>
             const musicPlayer = document.getElementById('background-music');
             const musicButton = document.getElementById('music-button');
