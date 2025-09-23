@@ -1,5 +1,5 @@
 <audio id="bg-music" autoplay loop muted>
-  <source src="willy.mp3" type="audio/mpeg">
+  <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
 <button onclick="playMusic()">Play Music</button>
@@ -235,26 +235,6 @@
             } catch (e) {
                 console.error("Error setting up guestbook listener:", e);
             }
-        }
-    </script>
-
-    <!-- Background Music Player -->
-   <audio id="bg-music" autoplay loop muted>
-  <source src="willy.mp3" type="audio/mpeg">
-</audio>
-
-<button onclick="playMusic()">Play Music</button>
-
-<script>
-  function playMusic() {
-    const music = document.getElementById("bg-music");
-    music.muted = false;
-    music.play();
-  }  
-              isPlaying = !isPlaying;
-            });
-        </script>
-    </div>
 
     <!-- Hero Section -->
     <header class="h-screen w-full relative flex flex-col justify-center items-center text-white text-center">
