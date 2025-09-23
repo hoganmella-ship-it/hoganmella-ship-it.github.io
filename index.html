@@ -1,16 +1,7 @@
-<audio id="bg-music" autoplay loop muted>
+<!-- Background Music -->
+<audio id="bg-music" autoplay loop>
   <source src="musik.mp3" type="audio/mpeg">
 </audio>
-
-<button onclick="playMusic()">Play Music</button>
-
-<script>
-  function playMusic() {
-    const music = document.getElementById("bg-music");
-    music.muted = false;
-    music.play();
-  }
-</script>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -235,6 +226,46 @@
             } catch (e) {
                 console.error("Error setting up guestbook listener:", e);
             }
+        }
+    </script>
+
+    <!-- Background Music Player -->
+    <div id="music-player" class="fixed bottom-4 right-4 z-50">
+        <audio id="background-music" loop>
+            <source src="https://www.youtube.com/watch?v=BqFEtDsTUrQ" type="audio/mpeg">
+        </audio>
+        <button id="music-button" class="p-3 rounded-full bg-sage text-white shadow-lg focus:outline-none">
+            <ion-icon name="musical-notes-outline" id="music-icon" class="text-xl"></ion-icon>
+        </button>
+        <script>
+            const musicPlayer = document.getElementById('background-music');
+            const musicButton = document.getElementById('music-button');
+            const musicIcon = document.getElementById('music-icon');
+
+            // Using YouTube's embed link to handle auto-play better
+            const youtubeEmbedUrl = 'https://www.youtube.com/embed/BqFEtDsTUrQ?autoplay=1&mute=1&loop=1&controls=0&playlist=BqFEtDsTUrQ';
+            const youtubePlayer = document.createElement('iframe');
+            youtubePlayer.id = 'youtube-player';
+            youtubePlayer.className = 'hidden';
+            youtubePlayer.src = youtubeEmbedUrl;
+            youtubePlayer.setAttribute('frameborder', '0');
+            youtubePlayer.setAttribute('allow', 'autoplay; encrypted-media');
+            document.body.appendChild(youtubePlayer);
+
+            let isPlaying = false;
+            musicButton.addEventListener('click', () => {
+                const player = document.getElementById('youtube-player');
+                if (isPlaying) {
+                    player.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                    musicIcon.name = 'musical-notes-outline';
+                } else {
+                    player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                    musicIcon.name = 'pause-outline';
+                }
+                isPlaying = !isPlaying;
+            });
+        </script>
+    </div>
 
     <!-- Hero Section -->
     <header class="h-screen w-full relative flex flex-col justify-center items-center text-white text-center">
