@@ -1,6 +1,47 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Pernikahan</title>
+  <style>
+    body { font-family: 'Georgia', serif; background:#fdf6f0; text-align:center; padding:40px; }
+    .card { background:white; padding:30px; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.15); display:inline-block; max-width:500px; }
+    h1 { color:#b56576; margin-bottom:20px; }
+    .nama-tamu { font-size:20px; font-weight:bold; margin:10px 0; }
+    .isi { font-size:18px; color:#333; margin:20px 0; line-height:1.6; }
+    a { display:inline-block; margin-top:15px; text-decoration:none; color:white; background:#b56576; padding:10px 16px; border-radius:8px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Undangan Pernikahan</h1>
+    
+    <p>Kepada Yth.</p>
+    <p class="nama-tamu" id="guestName">Bapak/Ibu/Saudara/i ...</p>
+    
+    <div class="isi">
+      Dengan hormat, kami mengundang Anda untuk hadir  
+      dalam acara pernikahan kami.
+    </div>
+
+    <a href="https://maps.app.goo.gl/ucs9XDoDHdDL6nw46" target="_blank">📍 Lihat Lokasi</a>
+  </div>
+
+  <script>
+    // Ambil parameter ?nama= dari URL
+    const params = new URLSearchParams(window.location.search);
+    const nama = params.get("nama");
+
+    if (nama) {
+      document.getElementById("guestName").innerHTML = 
+        "Bapak/Ibu/Saudara/i <b>" + decodeURIComponent(nama) + "</b>";
+    }
+  </script>
+</body>
+</html>
+<html lang="id">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Willy & Nengsy</title>
