@@ -329,12 +329,39 @@
         <div class="divider"></div>
         
         <!-- Google Maps Section -->
-        <section class="max-w-4xl mx-auto text-center py-12 fade-in">
-            <h2 class="text-3xl md:text-4xl font-semibold mb-8 text-sage">Peta Lokasi</h2>
-            <div class="relative overflow-hidden rounded-2xl shadow-lg border border-sage/50 w-full" style="padding-top: 56.25%;">
-                <iframe class="absolute top-0 left-0 w-full h-full" src="https:https://maps.app.goo.gl/ucs9XDoDHdDL6nw46"></iframe>
-            </div>
-        </section>
+        <!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Undangan - Lokasi Pernikahan</title>
+  <style>
+    body { font-family: system-ui, Arial; display:flex; align-items:center; justify-content:center; min-height:100vh; margin:0; background:#f6f3ef; }
+    .card { background:white; padding:24px; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,0.08); text-align:center; width:320px; }
+    h2 { margin:0 0 8px; color:#2b2b2b; font-size:20px; }
+    p { margin:0 0 14px; color:#555; }
+    img.qr { width:200px; height:200px; object-fit:contain; border-radius:8px; }
+    .btn { display:inline-block; margin-top:12px; text-decoration:none; padding:10px 14px; border-radius:8px; background:#3b82f6; color:white; }
+    small { display:block; margin-top:10px; color:#888; font-size:12px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Lokasi Pernikahan</h2>
+    <p>Scan QR atau tekan tombol untuk buka Google Maps</p>
+
+    <!-- Ganti ucs9XDoDHdDL6nw46 dengan shortlink kamu jika beda -->
+    <img class="qr"
+         alt="QR Code Lokasi"
+         src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://maps.app.goo.gl/ucs9XDoDHdDL6nw46" />
+
+    <!-- tombol langsung buka -->
+    <a class="btn" href="https://maps.app.goo.gl/ucs9XDoDHdDL6nw46" target="_blank" rel="noopener">Buka di Google Maps</a>
+
+    <small>Jika ingin embedding peta langsung (iframe), kirim alamat atau koordinat (lat,long).</small>
+  </div>
+</body>
+</html>
         
         <div class="divider"></div>
 
