@@ -123,25 +123,16 @@
         // --- Firebase Initialization ---
         window.addEventListener('load', async () => {
             try {
-                const firebaseConfig = JSON.parse(__firebase_config);
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-                
-                const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken);
-                } else {
-                    await signInAnonymously(auth);
-                }
+         const firebaseConfig = {
+  apiKey: "AIzaSyD8uQ7sUkXCRWaKu5GTvoORjTp4Z7h8Ym4",
+  authDomain: "weding12-57f8b.firebaseapp.com",
+  projectId: "weding12-57f8b",
+  storageBucket: "weding12-57f8b.firebasestorage.app",
+  messagingSenderId: "839638587796",
+  appId: "1:839638587796:web:d727a17247883a2f399781",
+  measurementId: "G-GBZ8ESTNJM"
+};
 
-                console.log("Firebase initialized. User ID:", auth.currentUser?.uid);
-
-                setupGuestbookListener();
-            } catch (error) {
-                console.error("Error initializing Firebase:", error);
-            }
-        });
 
         // --- Countdown Timer ---
         const countdownDate = new Date('2025-09-28T15:00:00');
