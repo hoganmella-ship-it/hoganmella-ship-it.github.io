@@ -1,36 +1,14 @@
 <!DOCTYPE html>
-      <html lang="id">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: 'Georgia', serif; background:#fdf6f0; text-align:center; padding:40px; }
-    .card { background:white; padding:30px; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.15); display:inline-block; max-width:500px; }
-    h1 { color:#b56576; margin-bottom:20px; }
-    .nama-tamu { font-size:20px; font-weight:bold; margin:10px 0; }
-    .isi { font-size:18px; color:#333; margin:20px 0; line-height:1.6; }
-    a { display:inline-block; margin-top:15px; text-decoration:none; color:white; background:#b56576; padding:10px 16px; border-radius:8px; }
-  </style>
-</head>
-<body>
-  <div class="card">
-    
-    <p>Kepada Yth.</p>
-    <p class="nama-tamu" id="guestName">Bapak/Ibu/Saudara/i ...</p>
-    
-    <div class="isi">
-      Dengan hormat, kami mengundang Anda untuk hadir  
-      dalam acara pernikahan kami.
-    </div>
-    
-  <script>
-    // Ambil parameter ?nama= dari URL
-    const params = new URLSearchParams(window.location.search);
-    const nama = params.get("nama");
-
-    if (nama) {
-      document.getElementById("guestName").innerHTML = 
-        "Bapak/Ibu/Saudara/i <b>" + decodeURIComponent(nama) + "</b>";
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Willy & Nengsy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f0fdf4;
@@ -268,25 +246,14 @@
             </button>
         </div>
     </header>
-  <script>
-    // Ambil parameter ?nama= dari URL
-    const params = new URLSearchParams(window.location.search);
-    const nama = params.get("nama");
 
-    if (nama) {
-      document.getElementById("guestName").innerHTML = 
-        "Bapak/Ibu/Saudara/i <b>" + decodeURIComponent(nama) + "</b>";
-    }
-  </script>
-</body>
-</html>
     <main class="py-12 px-4 md:px-8">
 
         <!-- Personalized Greeting Section (moved to be more prominent) -->
         <section class="max-w-xl mx-auto text-center py-6 fade-in">
             <div id="greeting-card" class="bg-white p-6 rounded-2xl shadow-lg border border-sage/50">
                 <p id="greeting" class="text-base md:text-lg font-light text-gray-700">
-     
+                    Halo Tamu, selamat datang 🙏
                 </p>
             </div>
         </section>
@@ -486,4 +453,3 @@
     </script>
 </body>
 </html>
-
