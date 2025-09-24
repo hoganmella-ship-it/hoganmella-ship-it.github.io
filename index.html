@@ -228,14 +228,13 @@
     <!-- Background Music Player -->
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Music Player</title>
-    <!-- Use the Inter font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Tailwind CSS CDN -->
     <script src="https://drive.google.com/file/d/17hX4iR7uvIksA_XMxr2CCnSev2_DRz1c/view?usp=sharing"></script>
     <style>
+    
+        <!-- Audio element with controls -->
+        <audio id="musicPlayer" controls autoplay class="w-full h-12">
         body {
             font-family: 'Inter', sans-serif;
             @apply bg-gray-900 text-gray-100 flex items-center justify-center min-h-screen p-4;
