@@ -1,7 +1,19 @@
 <!-- Background Music -->
-<audio id="bg-music" autoplay loop>
-  <source src=https://github.com/hoganmella-ship-it/hoganmella-ship-it.github.io/blob/main/musik.mp3
-</audio>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play My Song</title>
+</head>
+<body>
+    <h1>Play My Song</h1>
+    <audio controls>
+        <source src="https://github.com/hoganmella-ship-it/hoganmella-ship-it.github.io/blob/main/musik.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</body>
+</html>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -232,7 +244,7 @@
     <!-- Background Music Player -->
     <div id="music-player" class="fixed bottom-4 right-4 z-50">
         <audio id="background-music" loop>
-            <source src="musik.mp3" type="audio/mpeg">
+            <source src="https://github.com/hoganmella-ship-it/hoganmella-ship-it.github.io/blob/main/musik.mp3" type="audio/mpeg">
         </audio>
         <button id="music-button" class="p-3 rounded-full bg-sage text-white shadow-lg focus:outline-none">
             <ion-icon name="musical-notes-outline" id="music-icon" class="text-xl"></ion-icon>
@@ -243,7 +255,7 @@
             const musicIcon = document.getElementById('music-icon');
 
             // Using YouTube's embed link to handle auto-play better
-            const youtubeEmbedUrl =https://github.com/hoganmella-ship-it/hoganmella-ship-it.github.io/blob/main/musik.mp3
+            const youtubeEmbedUrl = 'https://www.youtube.com/embed/BqFEtDsTUrQ?autoplay=1&mute=1&loop=1&controls=0&playlist=BqFEtDsTUrQ';
             const youtubePlayer = document.createElement('iframe');
             youtubePlayer.id = 'youtube-player';
             youtubePlayer.className = 'hidden';
