@@ -77,12 +77,15 @@
         // Use a flag to prevent multiple event listeners from being set up.
         let isAuthReady = false;
 
-        // --- Firebase Initialization and Auth ---
-        window.addEventListener('load', async () => {
-            if (!firebaseConfig) {
-                console.error("Firebase config is not available. Please provide it for Firestore to work.");
-                return;
-            }
+      const firebaseConfig = {
+  apiKey: "AIzaSyCW04bIghnx0hVx9UQVGY6-KHKhG26mJ5c",
+  authDomain: "kemenagan-e37b4.firebaseapp.com",
+  projectId: "kemenagan-e37b4",
+  storageBucket: "kemenagan-e37b4.firebasestorage.app",
+  messagingSenderId: "958731801539",
+  appId: "1:958731801539:web:a4ab62ce79455b094e6376",
+  measurementId: "G-42VBQ98910"
+};
 
             try {
                 const app = initializeApp(firebaseConfig);
