@@ -60,6 +60,57 @@
     </style>
 </head>
 <body class="overflow-x-hidden">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Undangan</title>
+  <style>
+    body { font-family: 'Georgia', serif; background:#fdf6f0; text-align:center; padding:40px; }
+    .card { background:white; padding:30px; border-radius:16px; box-shadow:0 4px 10px rgba(0,0,0,0.15); display:inline-block; max-width:520px; }
+    .to { font-size:16px; color:#666; margin-bottom:6px; }
+    .guest { font-size:20px; font-weight:700; margin:0 0 14px; }
+    .body-text { font-size:18px; color:#333; line-height:1.6; margin-bottom:14px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <p class="to">Kepada Yth.</p>
+    <p class="guest" id="guestName">Bapak/Ibu/Saudara/i ...</p>
+
+    <div class="body-text">
+      Dengan hormat, kami mengundang Anda untuk hadir dalam acara kami.
+    </div>
+  </div>
+
+  <script>
+    // escape biar aman
+    function escapeHTML (str) {
+      return String(str).replace(/[&<>"'`=\/]/g, function(s) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;',
+          '/': '&#x2F;',
+          '`': '&#x60;',
+          '=': '&#x3D;'
+        }[s];
+      });
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const namaRaw = params.get('nama');
+
+    if (namaRaw && namaRaw.trim() !== '') {
+      const namaSafe = escapeHTML(decodeURIComponent(namaRaw.replace(/\+/g, ' ')));
+      document.getElementById('guestName').innerHTML = "Bapak/Ibu/Saudara/i <b>" + namaSafe + "</b>";
+    }
+  </script>
+</body>
+</html>
 
     <!-- Firebase SDKs from CDN -->
     <script type="module">
