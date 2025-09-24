@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Willy & Nengsy Wedding</title>
+    <title>Willy & Nengsy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -11,7 +11,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0fdf4;
+            background-color: #f0fdf4; /* Sage Green background */
             color: #1f2937;
             scroll-behavior: smooth;
         }
@@ -64,121 +64,78 @@
     <!-- Firebase SDKs from CDN -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // Global variables provided by the environment
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        let db, auth, userId;
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         
-        // Use a flag to prevent multiple event listeners from being set up.
-        let isAuthReady = false;
-
-      const firebaseConfig = {
-  apiKey: "AIzaSyCW04bIghnx0hVx9UQVGY6-KHKhG26mJ5c",
-  authDomain: "kemenagan-e37b4.firebaseapp.com",
-  projectId: "kemenagan-e37b4",
-  storageBucket: "kemenagan-e37b4.firebasestorage.app",
-  messagingSenderId: "958731801539",
-  appId: "1:958731801539:web:a4ab62ce79455b094e6376",
-  measurementId: "G-42VBQ98910"
-};
-
+        let db, auth, userId;
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        
+        // --- Firebase Initialization ---
+        window.addEventListener('load', async () => {
             try {
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-                setLogLevel('debug'); // Enable debug logging for Firestore
-
-                // Sign in with the provided token or anonymously
-                await onAuthStateChanged(auth, async (user) => {
-                    if (user) {
-                        userId = user.uid;
-                        if (!isAuthReady) {
-                            console.log("Firebase initialized. User ID:", userId);
-                            setupGuestbookListener();
-                            setupPersonalizedGreeting();
-                            isAuthReady = true;
-                        }
-                    } else {
-                        // Sign in anonymously if no user is found
-                        await signInAnonymously(auth);
-                        console.log("Signed in anonymously.");
-                    }
-                });
-
+                const firebaseConfig = {
+  apiKey: "AIzaSyD4oIhLkbIvobMEWSteoOqa8YOKJZrqJBQ",
+  authDomain: "badas-d4d68.firebaseapp.com",
+  projectId: "badas-d4d68",
+  storageBucket: "badas-d4d68.firebasestorage.app",
+  messagingSenderId: "37305526832",
+  appId: "1:37305526832:web:bffc4ed208a4efe6a41bf5",
+  measurementId: "G-ZZD9F35JNL"
+};
+                const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
                 if (initialAuthToken) {
                     await signInWithCustomToken(auth, initialAuthToken);
-                }
-
-            } catch (e) {
-                console.error("Error initializing Firebase or signing in: ", e);
-            }
-
-            // --- Countdown Timer ---
-            const countdownDate = new Date('2025-09-28T15:00:00');
-            const countdownElement = document.getElementById('countdown');
-            
-            function updateCountdown() {
-                const now = new Date().getTime();
-                const distance = countdownDate - now;
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                if (distance < 0) {
-                    countdownElement.innerHTML = "Kami Telah Menikah!";
                 } else {
-                    countdownElement.innerHTML = `
-                        <div class="text-center">
-                            <div class="text-4xl md:text-6xl font-bold text-sage">${days}</div>
-                            <div class="text-xs md:text-sm text-gray-500 mt-1">Hari</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-4xl md:text-6xl font-bold text-sage">${hours}</div>
-                            <div class="text-xs md:text-sm text-gray-500 mt-1">Jam</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-4xl md:text-6xl font-bold text-sage">${minutes}</div>
-                            <div class="text-xs md:text-sm text-gray-500 mt-1">Menit</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-4xl md:text-6xl font-bold text-sage">${seconds}</div>
-                            <div class="text-xs md:text-sm text-gray-500 mt-1">Detik</div>
-                        </div>
-                    `;
+                    await signInAnonymously(auth);
                 }
+                
+                userId = auth.currentUser?.uid || crypto.randomUUID();
+                console.log("Firebase initialized. User ID:", userId);
+
+                // Initialize guestbook listener after auth
+                setupGuestbookListener();
+
+            } catch (error) {
+                console.error("Error initializing Firebase:", error);
             }
-            
-            setInterval(updateCountdown, 1000);
         });
 
-        // --- Personalized Greeting from URL ---
-        function setupPersonalizedGreeting() {
-            const params = new URLSearchParams(window.location.search);
-            const namaRaw = params.get('nama');
-            const greetingElement = document.getElementById('greeting');
-            const guestNameElement = document.getElementById('guestName');
+        // --- Countdown Timer ---
+        const countdownDate = new Date('2025-09-28T15:00:00');
+        const countdownElement = document.getElementById('countdown');
 
-            if (namaRaw && namaRaw.trim() !== '') {
-                // Sanitize the name to prevent XSS attacks
-                const namaSafe = new DOMParser().parseFromString(namaRaw, 'text/html').body.textContent;
-                greetingElement.innerHTML = `Halo <b class="text-sage">${namaSafe}</b>, selamat datang 🙏`;
-                guestNameElement.innerHTML = `Bapak/Ibu/Saudara/i <b>${namaSafe}</b>`;
-                document.getElementById('greeting-card').style.display = 'block';
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if (distance < 0) {
+                countdownElement.innerHTML = "Kami Telah Menikah!";
             } else {
-                guestNameElement.innerHTML = "Bapak/Ibu/Saudara/i ...";
-                greetingElement.innerHTML = `Halo Tamu, selamat datang 🙏`;
+                countdownElement.innerHTML = `
+                    <div class="text-center">
+                        <div class="text-4xl md:text-6xl font-bold text-sage">${days}</div>
+                        <div class="text-xs md:text-sm text-gray-500 mt-1">Hari</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl md:text-6xl font-bold text-sage">${hours}</div>
+                        <div class="text-xs md:text-sm text-gray-500 mt-1">Jam</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl md:text-6xl font-bold text-sage">${minutes}</div>
+                        <div class="text-xs md:text-sm text-gray-500 mt-1">Menit</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl md:text-6xl font-bold text-sage">${seconds}</div>
+                        <div class="text-xs md:text-sm text-gray-500 mt-1">Detik</div>
+                    </div>
+                `;
             }
-        }
-        
-        // Initial setup for the greeting card on page load
-        document.addEventListener('DOMContentLoaded', setupPersonalizedGreeting);
+        }, 1000);
 
         // --- RSVP Form Submission ---
         const rsvpForm = document.getElementById('rsvp-form');
@@ -198,13 +155,13 @@
                 }
 
                 try {
-                    await addDoc(collection(db, `artifacts/${appId}/public/data/rsvps`), {
+                    const docRef = await addDoc(collection(db, `artifacts/${appId}/public/data/rsvps`), {
                         name: name,
                         status: status,
                         guests: parseInt(guests) || 0,
                         timestamp: serverTimestamp()
                     });
-                    
+                    console.log("RSVP submitted with ID: ", docRef.id);
                     rsvpMessage.textContent = "Terima kasih, RSVP Anda telah kami terima!";
                     rsvpMessage.className = "text-green-500 mt-2";
                     rsvpForm.reset();
@@ -215,7 +172,7 @@
                 }
             });
         }
-
+        
         // --- Guestbook (Ucapan) Form Submission and Display ---
         const guestbookForm = document.getElementById('guestbook-form');
         const greetingsList = document.getElementById('greetings-list');
@@ -245,22 +202,11 @@
 
         function setupGuestbookListener() {
             try {
-                const q = query(collection(db, `artifacts/${appId}/public/data/greetings`));
+                const q = query(collection(db, `artifacts/${appId}/public/data/greetings`), orderBy("timestamp", "desc"));
                 onSnapshot(q, (querySnapshot) => {
-                    const greetings = [];
-                    querySnapshot.forEach((doc) => {
-                        greetings.push({ ...doc.data(), id: doc.id });
-                    });
-                    
-                    // Sort the array by timestamp in descending order
-                    greetings.sort((a, b) => {
-                        const timeA = a.timestamp?.toMillis() || 0;
-                        const timeB = b.timestamp?.toMillis() || 0;
-                        return timeB - timeA;
-                    });
-
                     greetingsList.innerHTML = '';
-                    greetings.forEach((data) => {
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
                         const greetingCard = document.createElement('div');
                         greetingCard.className = "p-4 border border-sage rounded-xl shadow-lg my-2 fade-in bg-white";
                         greetingCard.innerHTML = `
@@ -279,6 +225,24 @@
         }
     </script>
 
+    <!-- Background Music Player -->
+    <div id="music-player" class="fixed bottom-4 right-4 z-50">
+        <audio id="background-music" loop>
+            <source src="hhttps://www.dropbox.com/preview/musik.mp3?role=personal" type="audio/mpeg">
+        </audio>
+        <button id="music-button" class="p-3 rounded-full bg-sage text-white shadow-lg focus:outline-none">
+            <ion-icon name="musical-notes-outline" id="music-icon" class="text-xl"></ion-icon>
+        </button>
+        <script>
+                } else {
+                    player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                    musicIcon.name = 'pause-outline';
+                }
+                isPlaying = !isPlaying;
+            });
+        </script>
+    </div>
+
     <!-- Hero Section -->
     <header class="h-screen w-full relative flex flex-col justify-center items-center text-white text-center">
         <div class="absolute inset-0 bg-cover bg-center z-0" style="background-image: url('https://lh3.googleusercontent.com/d/1hHA2ZL-Bp0Zm4gfHiafLZC15czcMooCE');">
@@ -296,24 +260,13 @@
 
     <main class="py-12 px-4 md:px-8">
 
-        <!-- Personalized Greeting Section -->
-        <section class="max-w-xl mx-auto text-center py-6 fade-in">
-            <div id="greeting-card" class="bg-white p-6 rounded-2xl shadow-lg border border-sage/50">
-                <p id="greeting" class="text-base md:text-lg font-light text-gray-700">
-                    Halo Tamu, selamat datang 🙏
-                </p>
-                <p class="to mt-4">Kepada Yth.</p>
-                <p class="guest text-xl font-bold text-sage" id="guestName">Bapak/Ibu/Saudara/i ...</p>
-            </div>
-        </section>
-
         <!-- Invitation & Couple Section -->
         <section id="invitation-section" class="max-w-4xl mx-auto text-center py-12 fade-in">
             <h2 class="text-3xl md:text-4xl font-semibold mb-4 text-sage">Dengan segala kerendahan hati</h2>
             <p class="text-base md:text-lg mb-8 max-w-2xl mx-auto">
                 Kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam acara pernikahan kami. Kehadiran Anda adalah anugerah terindah bagi kami.
             </p>
-
+            
             <div class="bg-gray-100 p-6 rounded-2xl max-w-lg mx-auto mb-10">
                 <p class="text-xs md:text-sm italic text-gray-600">
                     TUHAN Allah berfirman: "Tidak baik, kalau manusia itu seorang diri saja. Aku akan menjadikan penolong baginya, yang sepadan dengan dia."
@@ -325,13 +278,13 @@
 
             <div class="grid md:grid-cols-2 gap-12 mt-12">
                 <div>
-                    <img src="https://lh3.googleusercontent.com/d/1vviYyDjJFY782EWNqcbyQ2CBy91zaxTG" onerror="this.src='https://placehold.co/500x500/A3B18A/283618?text=Willy'" alt="Willy Diaz" class="rounded-full w-40 h-40 object-cover mx-auto mb-4 border-4 border-sage shadow-md">
+                    <img src="https://lh3.googleusercontent.com/d/1vviYyDjJFY782EWNqcbyQ2CBy91zaxTG" onerror="this.src='https://placehold.co/500x500/A3B18A/283618?text=Foto\nTidak\nTersedia'" alt="Willy Diaz" class="rounded-full w-40 h-40 object-cover mx-auto mb-4 border-4 border-sage shadow-md">
                     <h3 class="text-2xl font-bold text-sage">Willy Diaz</h3>
                     <p class="text-sm text-gray-500 mt-2">Putra dari</p>
                     <p class="text-base text-gray-700 font-semibold">Bapak Antonius Diaz & Ibu Yakoba P Fanggitasi</p>
                 </div>
                 <div>
-                    <img src="https://lh3.googleusercontent.com/d/1k4L6NL0cCXx28WeVAmrIz0KsYlm2Ft4B" onerror="this.src='https://placehold.co/500x500/A3B18A/283618?text=Nengsy'" alt="Nengsy Leko" class="rounded-full w-40 h-40 object-cover mx-auto mb-4 border-4 border-sage shadow-md">
+                    <img src="https://lh3.googleusercontent.com/d/1k4L6NL0cCXx28WeVAmrIz0KsYlm2Ft4B" onerror="this.src='https://placehold.co/500x500/A3B18A/283618?text=Foto\nTidak\nTersedia'" alt="Nengsy Leko" class="rounded-full w-40 h-40 object-cover mx-auto mb-4 border-4 border-sage shadow-md">
                     <h3 class="text-2xl font-bold text-sage">Nengsy Leko</h3>
                     <p class="text-sm text-gray-500 mt-2">Putri dari</p>
                     <p class="text-base text-gray-700 font-semibold">Bapak Yohanes Paulus Leko & Ibu Maria Chumayana</p>
@@ -366,27 +319,22 @@
                     <ion-icon name="restaurant-outline" class="icon"></ion-icon>
                     <h3 class="text-xl font-bold mt-4 mb-2 text-sage">Resepsi Pernikahan</h3>
                     <p class="text-sm text-gray-500">Minggu, 28 September 2025</p>
-                    <p class="text-xl font-semibold mt-2 mb-4">18:00 WITA</p>
+                    <p class="text-xl font-semibold mt-2 mb-4">18:59 WITA</p>
                     <p class="text-base text-gray-700">Ballroom Gereja Katolik St. Silvester Pecatu</p>
                 </div>
             </div>
         </section>
 
         <div class="divider"></div>
-
+        
         <!-- Google Maps Section -->
-        <section class="max-w-xl mx-auto py-12 text-center fade-in">
-            <div class="bg-white p-8 rounded-2xl shadow-lg border border-sage/50">
-                <h2 class="text-xl font-bold mb-2 text-sage">Lokasi Acara</h2>
-                <p class="text-sm text-gray-600 mb-4">Scan QR atau klik tombol untuk menuju lokasi di Google Maps</p>
-                
-                <a class="inline-block px-6 py-3 bg-sage text-white rounded-full hover:opacity-90 transition-opacity font-semibold" 
-                    href="https://maps.app.goo.gl/ucs9XDoDHdDL6nw46" target="_blank" rel="noopener">
-                    Buka di Google Maps
-                </a>
+        <section class="max-w-4xl mx-auto text-center py-12 fade-in">
+            <h2 class="text-3xl md:text-4xl font-semibold mb-8 text-sage">Peta Lokasi</h2>
+            <div class="relative overflow-hidden rounded-2xl shadow-lg border border-sage/50 w-full" style="padding-top: 56.25%;">
+                <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3942.279627670966!2d115.11181167448265!3d-8.79093399080644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd25b303102179d%3A0xc682245b0d0c3545!2sGereja%20Katolik%20St.%20Silvester%20Pecatu!5e0!3m2!1sid!2sid!4v1699948493121!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </section>
-
+        
         <div class="divider"></div>
 
         <!-- Gallery Section -->
@@ -461,14 +409,14 @@
         <section class="max-w-xl mx-auto text-center py-12 fade-in">
             <h2 class="text-3xl md:text-4xl font-semibold mb-8 text-sage">Ucapan & Doa</h2>
             <p class="mb-6 text-gray-600">Kepada Bapak/Ibu/Saudara/i yang ingin memberikan ucapan kepada kami, dapat dituliskan di bawah ini.</p>
-
+            
             <!-- Guestbook Form -->
             <form id="guestbook-form" class="bg-white p-8 rounded-2xl shadow-lg border border-sage/50 space-y-4 mb-8">
                 <input id="guest-name" type="text" placeholder="Nama Anda" class="w-full p-3 rounded-lg border-2 border-gray-200 focus:border-sage focus:outline-none transition-all" required>
                 <textarea id="guest-message" placeholder="Tuliskan ucapan dan doa terbaik Anda..." rows="4" class="w-full p-3 rounded-lg border-2 border-gray-200 focus:border-sage focus:outline-none transition-all" required></textarea>
                 <button type="submit" class="w-full py-3 bg-sage text-white font-semibold rounded-lg hover:opacity-90 transition-opacity">Kirim Ucapan</button>
             </form>
-
+            
             <!-- Greetings List -->
             <div id="greetings-list" class="space-y-4 max-h-96 overflow-y-auto pr-2">
                 <!-- Greetings will be populated by JS from Firestore -->
@@ -486,6 +434,7 @@
             </p>
             <p class="text-lg font-bold mt-4 text-sage">Willy & Nengsy</p>
         </section>
+
     </main>
 </body>
 </html>
