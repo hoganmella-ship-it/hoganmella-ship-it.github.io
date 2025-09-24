@@ -226,18 +226,55 @@
     </script>
 
     <!-- Background Music Player -->
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Player from Dropbox</title>
+    <title>Simple Music Player</title>
+    <!-- Use the Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            @apply bg-gray-900 text-gray-100 flex items-center justify-center min-h-screen p-4;
+        }
+    </style>
 </head>
 <body>
-    <h2>Dropbox Music Player</h2>
-    <audio controls>
-        <source src="https://www.dropbox.com/scl/fi/xpgldcggysusueuhw2kwo/musik.mp3?raw=1" type="audio/mpeg">
-    </audio>
+
+<div class="bg-gray-800 p-8 rounded-3xl shadow-2xl max-w-sm w-full border-2 border-gray-700">
+    <div class="flex flex-col items-center space-y-6">
+        <!-- Title and description -->
+        <div class="text-center">
+            <h2 class="text-2xl font-bold tracking-tight text-white mb-1">Pemutar Musik</h2>
+            <p class="text-sm text-gray-400">Musik untuk pernikahan romantis.</p>
+        </div>
+
+        <!-- Placeholder for album art -->
+        <div class="w-48 h-48 rounded-2xl bg-gray-700 flex items-center justify-center overflow-hidden shadow-inner">
+            <svg class="w-20 h-20 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+            </svg>
+        </div>
+
+        <!-- Song details -->
+        <div class="text-center">
+            <h3 class="text-lg font-semibold text-white truncate">Lagu Pernikahan Romantis</h3>
+            <p class="text-sm text-gray-400">Bensound</p>
+        </div>
+
+        <!-- Audio element with controls -->
+        <audio id="musicPlayer" controls class="w-full h-12">
+            <!-- Sumber musik untuk pernikahan yang romantis dan bebas royalti dari Bensound.com -->
+            <source src="https://www.bensound.com/bensound-music/bensound-betterdays.mp3" type="audio/mpeg">
+            Browser Anda tidak mendukung elemen audio.
+        </audio>
+    </div>
+</div>
+
 </body>
 </html>
 
