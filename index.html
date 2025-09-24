@@ -258,17 +258,21 @@
     </script>
 
     <!-- Background Music Player -->
-    <div id="music-player" class="fixed bottom-4 right-4 z-50">
-        <!-- Note: The original music source was a GitHub page, which may not stream correctly.
-             Consider hosting your music file on a proper service like Google Cloud Storage or another CDN.
-             A placeholder URL is used here for demonstration purposes. -->
-        <audio id="background-music" loop>
-            <source src="https://www.dropbox.com/preview/musik.mp3?role=personal" type="audio/mpeg">
-        </audio>
-        <button id="music-button" class="p-3 rounded-full bg-sage text-white shadow-lg focus:outline-none">
-            <ion-icon name="musical-notes-outline" id="music-icon" class="text-xl"></ion-icon>
-        </button>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player from Dropbox</title>
+</head>
+<body>
+    <h2>Dropbox Music Player</h2>
+    <audio controls>
+        <source src="https://www.dropbox.com/preview/musik.mp3?role=personal" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</body>
+</html
 
     <!-- Hero Section -->
     <header class="h-screen w-full relative flex flex-col justify-center items-center text-white text-center">
